@@ -310,7 +310,10 @@ void ofApp::gotMessage(ofMessage msg)
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo)
 {
-
+    if( dragInfo.files.size() > 0 ) {
+        openMovie(dragInfo.files[0]);
+        fileName = dragInfo.files[0];
+    }
 }
 
 
@@ -464,6 +467,24 @@ void ofApp::setScale(int scaleChoice)
 
 }
 
+
+void ofApp::openMovie (string result) {
+
+    if (mMovie.loadMovie(result)) {
+        movieWidth = mMovie.getWidth();
+        movieHeight = mMovie.getHeight();
+        scaledWidth = (int)movieWidth * scaleFloat;
+        scaledHeight = (int)movieHeight * scaleFloat;
+
+
+        mMovie.play();
+
+        //mMovie.pause();
+    } else {
+        ofSystemAlertDialog("the movie couldn't be loaded");
+    }
+
+}
 
 void ofApp::exportMovie()
 {
