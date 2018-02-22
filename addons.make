@@ -1,0 +1,4 @@
+ofxUI
+ofxVideoRecorder
+ofxXmlSettings
+ofxOpenCv
