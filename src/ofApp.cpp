@@ -18,7 +18,8 @@ void ofApp::setup()
     gui->addLabel("CV EFFECTS", OFX_UI_FONT_LARGE);
 
     gui->addSpacer();
-    gui->addLabelButton("load video", false);
+    gui->addLabel("drop video here to start", OFX_UI_FONT_SMALL);
+    gui->addSpacer();
     gui->addLabelButton("save video", false);
     gui->addLabelButton("save one frame", false);
     gui->addLabelButton("restart", false);
@@ -93,7 +94,7 @@ void ofApp::setup()
         ofBuffer buff = ofBufferFromFile(ofToDataPath("lastVideoName.txt"));
         fileName = buff.getFirstLine();
 
-        openMovie (fileName);
+
     }
     cv::initModule_nonfree();//THIS LINE IS IMPORTANT
 
@@ -333,26 +334,7 @@ void ofApp::exit()
 void ofApp::guiEvent(ofxUIEventArgs &e)
 {
 
-    if(e.getName() == "load video")
-    {
-
-        ofxUIButton *labelbutton = e.getButton();
-
-        if (labelbutton->getValue())
-        {
-
-            ofFileDialogResult openFileResult = ofSystemLoadDialog("select a movie");
-
-            //Check if the user opened a file
-            if (openFileResult.bSuccess)
-            {
-                //We have a file, check it and process it
-                openMovie(openFileResult.getPath());
-                fileName = openFileResult.getPath();
-            }
-        }
-    }
-    else if(e.getName() == "restart")
+    if(e.getName() == "restart")
     {
 
         if (!mMovie.isLoaded())
@@ -482,27 +464,6 @@ void ofApp::setScale(int scaleChoice)
 
 }
 
-void ofApp::openMovie (string result)
-{
-/*
-    if (mMovie.loadMovie(result))
-    {
-        movieWidth = mMovie.getWidth();
-        movieHeight = mMovie.getHeight();
-        scaledWidth = (int)movieWidth * scaleFloat;
-        scaledHeight = (int)movieHeight * scaleFloat;
-
-
-        mMovie.play();
-
-        //mMovie.pause();
-    }
-    else
-    {
-        ofSystemAlertDialog("the movie couldn't be loaded");
-    }
-*/
-}
 
 void ofApp::exportMovie()
 {
